@@ -127,3 +127,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDE
+.idea
+
+# hydra
+outputs/
+multirun/
+
+# data
+*.csv
+*.pt
+*.zip
+data/output
+data/output/n-params.json
+
+***/*.tmp
+
+# notebooks
+***/.ipynb_checkpoints
