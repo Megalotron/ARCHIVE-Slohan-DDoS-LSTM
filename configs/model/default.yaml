@@ -1,0 +1,20 @@
+parameters:
+  input_size: 14
+  output_size: 2
+
+  lstm_num_layers: 2
+  lstm_hidden_size: 40
+
+  num_layers: 1
+  hidden_size: 40
+
+optimizer:
+  name: Adam
+  learning_rate: 0.001
+
+criterion: CrossEntropyLoss
+
+saving:
+  checkpoint_dir: ./checkpoints
+  save_interval: 10
+  best_model_path: "./models/best_model.pt"

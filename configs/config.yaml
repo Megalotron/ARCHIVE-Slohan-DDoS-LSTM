@@ -1,0 +1,4 @@
+defaults:
+  - data: unb
+  - ressource: local
+  - model: default

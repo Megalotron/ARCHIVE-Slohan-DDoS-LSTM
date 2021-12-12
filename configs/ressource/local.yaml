@@ -1,0 +1,6 @@
+epochs: 50
+device: 'cpu'
+batch_size: 64
+chunksize: 500_000
+num_workers: 4
+max_tensor_size: 500_000
