@@ -1,0 +1,371 @@
+tensors:
+  step: 1
+  sequence_size: 10
+  dir: "./data/output/"
+  path: f"./data/output/unb_{idx}.pt"
+
+data_config:
+  num_classes: 2
+  train_ratio: 0.8
+  validation_ratio: 0.1
+  merge_path: "./data/output/merged.csv"
+  n-merge_path: "./data/output/n-merged.csv"
+  normalization_params_path: "./data/output/n-params.json"
+
+input_data:
+  UNB-LDAP:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/LDAP.csv"
+      preprocessed_path: "./data/output/p-LDAP.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-MSSQL:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/MSSQL.csv"
+      preprocessed_path: "./data/output/p-MSSQL.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-NetBIOS:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/NetBIOS.csv"
+      preprocessed_path: "./data/output/p-NetBIOS.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-Portmap:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/Portmap.csv"
+      preprocessed_path: "./data/output/p-Portmap.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-Syn:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/Syn.csv"
+      preprocessed_path: "./data/output/p-Syn.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-UDP:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/UDP.csv"
+      preprocessed_path: "./data/output/p-UDP.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
+
+  UNB-UDPLag:
+      url: "https://www.unb.ca/cic/datasets/ddos-2019.html"
+      raw_path: "./data/UNB/DDoS-2019/03-11/UDPLag.csv"
+      preprocessed_path: "./data/output/p-UDPLag.csv"
+      columns:
+        "Unnamed: 0":
+          rename: "Unnamed: 0"
+          apply: float
+        " Flow Duration":
+          rename: "Flow Duration"
+          apply: float
+        " Total Fwd Packets":
+          rename: "Total Fwd Packets"
+          apply: float
+        " Total Backward Packets":
+          rename: "Total Backward Packets"
+          apply: float
+        "Total Length of Fwd Packets":
+          rename: "Total Length of Fwd Packets"
+          apply: float
+        " Fwd Packet Length Max":
+          rename: "Fwd Packet Length Max"
+          apply: float
+        " Fwd Packet Length Min":
+          rename: "Fwd Packet Length Min"
+          apply: float
+        " Fwd Packet Length Mean":
+          rename: "Fwd Packet Length Mean"
+          apply: float
+        " Fwd Packet Length Std":
+          rename: "Fwd Packet Length Std"
+          apply: float
+        "Bwd Packet Length Max":
+          rename: "Bwd Packet Length Max"
+          apply: float
+        " Bwd Packet Length Min":
+          rename: "Bwd Packet Length Min"
+          apply: float
+        " Total Length of Bwd Packets":
+          rename: "Total Length of Bwd Packets"
+          apply: float
+        " Bwd Packet Length Mean":
+          rename: "Bwd Packet Length Mean"
+          apply: float
+        " Bwd Packet Length Std":
+          rename: "Bwd Packet Length Std"
+          apply: float
+        " Label":
+          rename: "Label"
+          apply: "lambda x : 0 if x == \"BENIGN\" else 1"
