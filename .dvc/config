@@ -1,0 +1,4 @@
+[core]
+    remote = slohan-ddos-lstm
+['remote "slohan-ddos-lstm"']
+    url = https://slohan-ddos-lstm.s3.fr-par.scw.cloud/

@@ -1,0 +1,62 @@
+stages:
+  preprocess_data:
+    cmd: python src/preprocess_data.py
+    deps:
+    - configs/config.yaml
+    - configs/data/
+    - data/UNB/DDoS-2019/03-11/LDAP.csv
+    - data/UNB/DDoS-2019/03-11/MSSQL.csv
+    - data/UNB/DDoS-2019/03-11/NetBIOS.csv
+    - data/UNB/DDoS-2019/03-11/Syn.csv
+    - data/UNB/DDoS-2019/03-11/UDP.csv
+    - data/UNB/DDoS-2019/03-11/UDPLag.csv
+    - src/preprocess_data.py
+    outs:
+    - data/output/p-LDAP.csv
+    - data/output/p-MSSQL.csv
+    - data/output/p-NetBIOS.csv
+    - data/output/p-Syn.csv
+    - data/output/p-UDP.csv
+    - data/output/p-UDPLag.csv
+  merge_data:
+    cmd: python src/merge_data.py
+    deps:
+    - configs/config.yaml
+    - configs/data/
+    - data/output/p-LDAP.csv
+    - data/output/p-MSSQL.csv
+    - data/output/p-NetBIOS.csv
+    - data/output/p-Syn.csv
+    - data/output/p-UDP.csv
+    - data/output/p-UDPLag.csv
+    - src/merge_data.py
+    outs:
+    - data/output/merged.csv
+  normalize_data:
+    cmd: python src/Normalizer.py
+    deps:
+    - configs/config.yaml
+    - configs/data/
+    - data/output/merged.csv
+    - src/Normalizer.py
+    outs:
+    - data/output/n-merged.csv
+    - data/output/n-params.json
+  create_tensors:
+    cmd: python src/Dataset.py
+    deps:
+    - configs/config.yaml
+    - configs/data/
+    - data/output/n-merged.csv
+    - src/Dataset.py
+    outs:
+    - data/output/unb_0.pt
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+    - configs/config.yaml
+    - configs/data/
+    - configs/model/
+    - configs/ressource/
+    - data/output/unb_0.pt
+    - src/train_model.py

@@ -1,0 +1,154 @@
+schema: '2.0'
+stages:
+  preprocess_data:
+    cmd: python src/preprocess_data.py
+    deps:
+    - path: configs/config.yaml
+      md5: b59f94a35ce77edd60fdd227769f5e62
+      size: 63
+    - path: configs/data/
+      md5: 9adc739ec8796576f174b61bb53e6dd9.dir
+      size: 11993
+      nfiles: 1
+    - path: data/UNB/DDoS-2019/03-11/LDAP.csv
+      md5: 113fc61349b686057416818d2a8a65c3
+      size: 871398918
+    - path: data/UNB/DDoS-2019/03-11/MSSQL.csv
+      md5: ece14ee137fd6d5157cc01060b0caf67
+      size: 2386225228
+    - path: data/UNB/DDoS-2019/03-11/NetBIOS.csv
+      md5: af244d7d690903ed1f501478431306a6
+      size: 1418468105
+    - path: data/UNB/DDoS-2019/03-11/Syn.csv
+      md5: cb409e885eeb06a254185a9f7a9e1c8e
+      size: 1877372065
+    - path: data/UNB/DDoS-2019/03-11/UDP.csv
+      md5: eeae174ee7aaa42ec2c89278fb16c7bf
+      size: 1792797298
+    - path: data/UNB/DDoS-2019/03-11/UDPLag.csv
+      md5: 4a3f3c08a51cdd97fe5e33c6b844a004
+      size: 319793413
+    - path: src/preprocess_data.py
+      md5: f7d945ac7fff5837a023ab6ef86d2f8e
+      size: 3286
+    outs:
+    - path: data/output/p-LDAP.csv
+      md5: a69551f3e5a534de6b9a99df3f09100c
+      size: 155156634
+    - path: data/output/p-MSSQL.csv
+      md5: 45a5e1da07831327957bb5e6dd878075
+      size: 410365702
+    - path: data/output/p-NetBIOS.csv
+      md5: a77da37a8c3dca976d32500915a2f968
+      size: 245011162
+    - path: data/output/p-Syn.csv
+      md5: f86160ea38ea3eba0db94e58206987e5
+      size: 284726826
+    - path: data/output/p-UDP.csv
+      md5: 8230fb4bb1e237913254254944ca542d
+      size: 304438157
+    - path: data/output/p-UDPLag.csv
+      md5: f5680052ec24119e871bc58fe49a1623
+      size: 49425248
+  merge_data:
+    cmd: python src/merge_data.py
+    deps:
+    - path: configs/config.yaml
+      md5: b59f94a35ce77edd60fdd227769f5e62
+      size: 63
+    - path: configs/data/
+      md5: 9adc739ec8796576f174b61bb53e6dd9.dir
+      size: 11993
+      nfiles: 1
+    - path: data/output/p-LDAP.csv
+      md5: a69551f3e5a534de6b9a99df3f09100c
+      size: 155156634
+    - path: data/output/p-MSSQL.csv
+      md5: 45a5e1da07831327957bb5e6dd878075
+      size: 410365702
+    - path: data/output/p-NetBIOS.csv
+      md5: a77da37a8c3dca976d32500915a2f968
+      size: 245011162
+    - path: data/output/p-Syn.csv
+      md5: f86160ea38ea3eba0db94e58206987e5
+      size: 284726826
+    - path: data/output/p-UDP.csv
+      md5: 8230fb4bb1e237913254254944ca542d
+      size: 304438157
+    - path: data/output/p-UDPLag.csv
+      md5: f5680052ec24119e871bc58fe49a1623
+      size: 49425248
+    - path: src/merge_data.py
+      md5: 7b94ff5fa4d712d53369d95ec89f6349
+      size: 1556
+    outs:
+    - path: data/output/merged.csv
+      md5: 8b8a0dad45fec4f20291a51f8ac5f7a6
+      size: 1462707976
+  normalize_data:
+    cmd: python src/Normalizer.py
+    deps:
+    - path: configs/config.yaml
+      md5: b59f94a35ce77edd60fdd227769f5e62
+      size: 63
+    - path: configs/data/
+      md5: 9adc739ec8796576f174b61bb53e6dd9.dir
+      size: 11993
+      nfiles: 1
+    - path: data/output/merged.csv
+      md5: 8b8a0dad45fec4f20291a51f8ac5f7a6
+      size: 1462707976
+    - path: src/Normalizer.py
+      md5: 3d9baf9617517cc57e1274f88d3082d7
+      size: 6916
+    outs:
+    - path: data/output/n-merged.csv
+      md5: 816be1130a3b0ef2db877f1776d6cfdd
+      size: 5878705851
+    - path: data/output/n-params.json
+      md5: 50749363b1f453c725406cb8c95838c1
+      size: 1124
+  create_tensors:
+    cmd: python src/Dataset.py
+    deps:
+    - path: configs/config.yaml
+      md5: b59f94a35ce77edd60fdd227769f5e62
+      size: 63
+    - path: configs/data/
+      md5: 9adc739ec8796576f174b61bb53e6dd9.dir
+      size: 11993
+      nfiles: 1
+    - path: data/output/n-merged.csv
+      md5: 816be1130a3b0ef2db877f1776d6cfdd
+      size: 5878705851
+    - path: src/Dataset.py
+      md5: aed2caf5a748c5013dc2e5d5f7efb81e
+      size: 9510
+    outs:
+    - path: data/output/unb_0.pt
+      md5: 1e99fdf9931285aa129f855849369cb7
+      size: 6447719
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+    - path: configs/config.yaml
+      md5: b59f94a35ce77edd60fdd227769f5e62
+      size: 63
+    - path: configs/data/
+      md5: 9adc739ec8796576f174b61bb53e6dd9.dir
+      size: 11993
+      nfiles: 1
+    - path: configs/model/
+      md5: 0f8d907f2267f6ee9d97fa19ec5bc942.dir
+      size: 307
+      nfiles: 1
+    - path: configs/ressource/
+      md5: 586661770f49e3657fdad45c3291b6c2.dir
+      size: 98
+      nfiles: 1
+    - path: data/output/unb_0.pt
+      md5: 1e99fdf9931285aa129f855849369cb7
+      size: 6447719
+    - path: src/train_model.py
+      md5: d65817c57d1dfb0ca56692fb79613b34
+      size: 3767
