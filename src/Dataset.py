@@ -33,7 +33,13 @@ class DDoSDataset(Dataset):
         return self.X[idx], self.y[idx]
 
 
-def create_dataloader(path: str, batch_size: int, num_workers :int=0, device: torch.device=torch.device('cpu'), **kwargs) -> Tuple[DataLoader, DataLoader, DataLoader]:
+def create_dataloader(
+        path: str,
+        batch_size: int,
+        num_workers: int=0,
+        device: torch.device=torch.device('cpu'),
+        **kwargs
+    ) -> Tuple[DataLoader, DataLoader, DataLoader]:
     """
     Creates the dataloaders for the training, validation and test set.
 
