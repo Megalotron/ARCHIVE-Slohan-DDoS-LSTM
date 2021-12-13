@@ -44,6 +44,10 @@ def create_dataloader(
     Creates the dataloaders for the training, validation and test set.
 
     :param path: The path to where the .pt files are located.
+    :param batch_size: The batch size of the dataloaders.
+    :param num_workers: The number of workers to use for the dataloaders.
+    :param device: The device to use for the dataloaders.
+    :param kwargs: The kwargs to pass to create_sets.
 
     :return: Training, validation and test dataloaders.
     """
