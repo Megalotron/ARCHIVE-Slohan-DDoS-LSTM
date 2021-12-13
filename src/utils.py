@@ -24,7 +24,19 @@ def plot_single_value(value, label, title, xlabel, ylabel) -> None:
     plt.show()
 
 
-def plot_mulitple_values(values, labels, title, xlabel, ylabel):
+def plot_mulitple_values(values, labels, title, xlabel, ylabel) -> None:
+    """
+    Plot multiple values with a given label.
+
+    :param values: The values to plot.
+    :param labels: The labels of the values.
+    :param title: The title of the plot.
+    :param xlabel: The x-axis label.
+    :param ylabel: The y-axis label.
+
+    :return: None
+    """
+
     for value, label in zip(values, labels):
         plt.plot(value, label=label)
 
