@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def plot_single_value(value, label, title, xlabel, ylabel, filename):
+def plot_single_value(value, label, title, xlabel, ylabel):
     plt.plot(value, label=label)
 
     plt.xlabel(xlabel)
