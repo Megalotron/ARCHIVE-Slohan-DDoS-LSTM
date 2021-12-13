@@ -189,14 +189,21 @@ def shuffle_set(data: torch.Tensor, labels: torch.Tensor) -> Tuple[torch.Tensor,
     return data[permutation], labels[permutation]
 
 
-def create_sets(data: torch.Tensor, labels: torch.Tensor, train_ratio: int=0.8, validation_ratio: int=0.1) -> Tuple[Tuple[torch.Tensor, torch.Tensor], Tuple[torch.Tensor, torch.Tensor], Tuple[torch.Tensor, torch.Tensor]]:
+def create_sets(
+        data: torch.Tensor,
+        labels: torch.Tensor,
+        train_ratio: float=0.8,
+        validation_ratio: float=0.1
+    ) -> Tuple[Tuple[torch.Tensor, torch.Tensor], Tuple[torch.Tensor, torch.Tensor], Tuple[torch.Tensor, torch.Tensor]]:
     """
     Creates the training, validation and test sets from a tensor.
 
+    The testing ratio is calculated as the rest of the data if any.
+
     :param data: The tensor to create the sets from.
     :param labels: The labels of the data.
-    :param train_size: The size of the training set.
-    :param validation_size: The size of the validation set.
+    :param train_ratio: The ratio of the training set.
+    :param validation_ratio: The ratio of the validation set.
 
     :return: Tuple containing the training, validation and test sets.
     """
