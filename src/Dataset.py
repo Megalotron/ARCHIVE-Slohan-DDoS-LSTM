@@ -140,13 +140,13 @@ def get_occurences_of_labels(df: pd.DataFrame, label_column: str) -> Tuple[int, 
     return len(df[df[label_column] == 0]), len(df[df[label_column] == 1])
 
 
-def limit_categories_in_tensors(data: torch.Tensor, labels: torch.Tensor, max_occurence) -> Tuple[torch.Tensor, torch.Tensor]:
+def limit_categories_in_tensors(data: torch.Tensor, labels: torch.Tensor, max_occurrences: int) -> Tuple[torch.Tensor, torch.Tensor]:
     """
     Limits the number of categories in the data and labels.
 
     :param data: the data to be checked
     :param labels: the labels to be checked
-    :param max_occurence: the maximum number of occurence of each label
+    :param max_occurrences: the maximum number of occurence for each label
 
     :return: the data and labels with the limited number of categories
     """
@@ -160,7 +160,7 @@ def limit_categories_in_tensors(data: torch.Tensor, labels: torch.Tensor, max_oc
     for data, label in zip(data, labels):
         label_value = label.item()
 
-        if occurences[label_value] >= max_occurence:
+        if occurences[label_value] >= max_occurrences:
             continue
 
         occurences[label_value] += 1
@@ -250,7 +250,7 @@ def __create_tensors_from_df(df: pd.DataFrame, sequence_size: int, step: int, de
 
         X, y = shuffle_set(X, y)
 
-        X, y = limit_categories_in_tensors(X, y, max_occurence=max_occurence)
+        X, y = limit_categories_in_tensors(X, y, max_occurrences=max_occurence)
         X, y = shuffle_set(X, y)
 
         log.info(f'Tensors created from dataframe')
