@@ -19,6 +19,8 @@ def main(cfg: DictConfig) -> None:
     Train the model based on the configuration.
 
     :param cfg: The configuration to use.
+
+    :return: None
     """
 
     data_cfg = cfg.data
