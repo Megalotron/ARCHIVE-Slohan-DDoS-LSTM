@@ -37,12 +37,12 @@ def drop_columns(df: pd.DataFrame, columns: list, inplace=False) -> pd.DataFrame
 
 def __preprocess_data_according_to_config(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     """
-    Preprocess the data according to its config.
+    Preprocess the DataFrame according to its config.
 
-    :param data: The data to be preprocessed.
+    :param df: The DataFrame to be preprocessed.
     :param config: The config to use.
 
-    :return: The preprocessed data.
+    :return: The preprocessed DataFrame.
     """
 
     log.debug(f'preprocessing data according to config')
