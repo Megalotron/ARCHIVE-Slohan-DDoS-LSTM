@@ -74,6 +74,8 @@ def main(cfg: DictConfig) -> None:
     Execut every instructions (rename & apply) stored in the config.
 
     :param cfg: The configuration to use.
+
+    :return: None
     """
 
     data_cfg = cfg.data
