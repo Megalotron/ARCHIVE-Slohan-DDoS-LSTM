@@ -18,8 +18,8 @@ def log_omegaconf_params_to_mlflow(hopt_cfg) -> None:
     :return: None
     """
 
-    for key in hopt_cfg.search_space.keys():
-        mlflow.log_param(key, hopt_cfg[key.split('.')[1]])
+    for key in hopt_cfg['values']:
+        mlflow.log_param(key.split('.')[-1], hopt_cfg['values'][key])
 
 
 class __CallBackMlFlow(object):
