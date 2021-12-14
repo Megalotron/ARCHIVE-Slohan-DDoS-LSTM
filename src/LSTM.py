@@ -1,10 +1,34 @@
 import torch
 import torch.nn as nn
 
-from typing import Tuple
+from typing import Tuple, List
 
 class LSTM(nn.Module):
-    def __init__(self, input_size, output_size, **kwargs):
+    """
+    LSTM model
+
+    :attr:`input_size`: the size of the input
+    :attr:`output_size`: the size of the output
+    :attr:`lstm_num_layers`: the number of LSTM layers
+    :attr:`lstm_hidden_size`: the size of the hidden state of the LSTM
+    :attr:`num_layers`: the number of layers in the model
+    :attr:`hidden_size`: the size of the hidden state of the model
+    :attr:`device`: the device to use
+    :attr:`l_lstm`: the LSTM layer
+    :attr:`l_lnrs`: the linear layers
+    """
+
+    def __init__(self, input_size, output_size, **kwargs) -> None:
+        """
+        Initialize the LSTM model
+
+        :param input_size: the size of the input
+        :param output_size: the size of the output
+        :param kwargs: the keyword arguments
+
+        :return: None
+        """
+
         super(LSTM, self).__init__()
 
         self.lstm_num_layers = kwargs.get("lstm_num_layers", 1)
@@ -23,7 +47,13 @@ class LSTM(nn.Module):
             device=self.device
         )
 
-        def create_layers():
+        def create_layers() -> List[nn.Linear]:
+            """
+            Create the linear layers
+
+            :return: the linear layers
+            """
+
             layers = []
 
             for _ in range(self.num_layers):
