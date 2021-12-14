@@ -5,6 +5,7 @@ stages:
     - configs/config.yaml
     - configs/data/
     - data/UNB/DDoS-2019/03-11/LDAP.csv
+    - data/UNB/DDoS-2019/03-11/Portmap.csv
     - data/UNB/DDoS-2019/03-11/MSSQL.csv
     - data/UNB/DDoS-2019/03-11/NetBIOS.csv
     - data/UNB/DDoS-2019/03-11/Syn.csv
@@ -13,6 +14,7 @@ stages:
     - src/preprocess_data.py
     outs:
     - data/output/p-LDAP.csv
+    - data/output/p-Portmap.csv
     - data/output/p-MSSQL.csv
     - data/output/p-NetBIOS.csv
     - data/output/p-Syn.csv
@@ -24,6 +26,7 @@ stages:
     - configs/config.yaml
     - configs/data/
     - data/output/p-LDAP.csv
+    - data/output/p-Portmap.csv
     - data/output/p-MSSQL.csv
     - data/output/p-NetBIOS.csv
     - data/output/p-Syn.csv
@@ -51,12 +54,23 @@ stages:
     - src/Dataset.py
     outs:
     - data/output/unb_0.pt
+  find_hyperparams:
+    cmd: python src/hp_optimizer.py --multirun ++hydra.sweep.dir=multirun-find_hyperparams
+    deps:
+      - configs/config.yaml
+      - configs/data/
+      - configs/hopt/
+      - data/output/unb_0.pt
+      - src/hp_optimizer.py
+    outs:
+      - multirun-find_hyperparams
   train_model:
     cmd: python src/train_model.py
     deps:
     - configs/config.yaml
     - configs/data/
-    - configs/model/
+    - configs/training/
     - configs/ressource/
     - data/output/unb_0.pt
+    - multirun-find_hyperparams/optimization_results.yaml
     - src/train_model.py

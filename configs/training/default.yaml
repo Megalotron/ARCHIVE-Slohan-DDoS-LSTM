@@ -1,0 +1,6 @@
+criterion: CrossEntropyLoss
+
+saving:
+  save_interval: 10
+  checkpoint_dir: ./checkpoints
+  best_model_path: "./models/best_model.pt"

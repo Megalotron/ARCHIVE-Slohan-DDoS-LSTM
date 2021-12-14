@@ -2,7 +2,7 @@ defaults:
   - _self_
   - data: unb
   - ressource: local
-  - model: default
+  - training: default
   - hopt: optuna_local.yaml
   - override hydra/sweeper: optuna
   - override hydra/sweeper/sampler: tpe
