@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from typing import Tuple
+from typing import Tuple, List, Callable, Optional, Any
 
 class LSTM(nn.Module):
     def __init__(self, input_size, output_size, **kwargs):
@@ -102,7 +102,13 @@ class LSTM(nn.Module):
         return model_size
 
 
-def train_model(model: nn.Module, dataloader, criterion: nn.Module, optimizer: torch.optim.Optimizer) -> Tuple[float, float]:
+def train_model(
+        model: nn.Module,
+        dataloader,
+        criterion: nn.Module,
+        optimizer: torch.optim.Optimizer,
+        callbacks: Optional[List[Callable[[Any], None]]]=None,
+    ) -> Tuple[float, float]:
     """
     Train the model on the training set.
 
@@ -111,9 +117,13 @@ def train_model(model: nn.Module, dataloader, criterion: nn.Module, optimizer: t
     :param labels:     The training labels.
     :param criterion:  The criterion to use.
     :param optimizer:  The optimizer to use.
+    :param callbacks:  The list of callbacks to use. If None, no callbacks are used.
 
     :return: the loss and the accuracy of the model on the training set.
     """
+
+    if callbacks is None:
+        callbacks = []
 
     model.train()
     losses = []
@@ -137,10 +147,18 @@ def train_model(model: nn.Module, dataloader, criterion: nn.Module, optimizer: t
 
         optimizer.step()
 
+        for callback in callbacks:
+            callback(model=model, data=data, label=label, output=output, loss=loss)
+
     return sum(losses) / NB_BATCHES, nb_correct / TOTAL_NB_ELEM
 
 
-def test_model(model: nn.Module, dataloader, criterion: nn.Module) -> Tuple[float, float]:
+def test_model(
+        model: nn.Module,
+        dataloader,
+        criterion: nn.Module,
+        callbacks: Optional[List[Callable[[Any], None]]]=None,
+    ) -> Tuple[float, float]:
     """
     Test the model on the test set.
 
@@ -149,9 +167,13 @@ def test_model(model: nn.Module, dataloader, criterion: nn.Module) -> Tuple[floa
     :param labels:     The test labels.
     :param criterion:  The criterion to use.
     :param nb_class:   The number of classes.
+    :param callbacks:  The list of callbacks to use. If None, no callbacks are used.
 
     :return: the loss and the accuracy of the model on the val/test set.
     """
+
+    if callbacks is None:
+        callbacks = []
 
     model.eval()
 
@@ -170,6 +192,9 @@ def test_model(model: nn.Module, dataloader, criterion: nn.Module) -> Tuple[floa
 
             loss = criterion(output, label)
             losses.append(loss.item())
+
+            for callback in callbacks:
+                callback(model=model, data=data, label=label, output=output, loss=loss)
 
     return sum(losses) / NB_BATCHES, (nb_correct / TOTAL_NB_ELEM).detach().cpu()
 
