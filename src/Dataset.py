@@ -224,6 +224,8 @@ def save_tensor(tensor: torch.Tensor, file_path: str) -> None:
 
     :param tensor: The tensor to save.
     :param file_path: The path to save the tensor to.
+
+    :return: None
     """
 
     torch.save(tensor, file_path)
