@@ -1,0 +1,38 @@
+name: optuna
+
+values:
+  lr: 0.001
+  lstm_num_layers: 1
+  lstm_hidden_size: 1
+  num_layers: 1
+  hidden_size: 1
+  optimizer_name: Adam
+
+sweeper:
+  direction: minimize
+  study_name: "optuna-based-hopt"
+  storage: null
+  n_trials: 30
+  n_jobs: 4
+  epochs: 2
+
+search_space:
+  hopt.values.num_layers:
+    type: categorical
+    choices: [1, 2, 5, 10, 20]
+  hopt.values.hidden_size:
+    type: categorical
+    choices: [5, 10, 20]
+  hopt.values.lr:
+    type: float
+    low: 0.0001
+    high: 0.01
+  hopt.values.lstm_num_layers:
+    type: categorical
+    choices: [1, 2, 5, 10, 20]
+  hopt.values.lstm_hidden_size:
+    type: categorical
+    choices: [5, 10, 20]
+  hopt.values.optimizer_name:
+    type: categorical
+    choices: ["Adam"]
