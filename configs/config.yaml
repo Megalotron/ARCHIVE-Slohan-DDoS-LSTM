@@ -1,4 +1,20 @@
 defaults:
+  - _self_
   - data: unb
   - ressource: local
   - model: default
+  - hopt: optuna_local.yaml
+  - override hydra/sweeper: optuna
+  - override hydra/sweeper/sampler: tpe
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+hydra:
+  sweeper:
+    direction: ${hopt.sweeper.direction}
+    study_name: ${hopt.sweeper.study_name}
+    storage: ${hopt.sweeper.storage}
+    n_trials: ${hopt.sweeper.n_trials}
+    n_jobs: ${hopt.sweeper.n_jobs}
+
+    search_space: ${hopt.search_space}
