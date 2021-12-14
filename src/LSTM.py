@@ -96,41 +96,6 @@ class LSTM(nn.Module):
 
         return y
 
-    def __get_dtype_size(self, dtype: torch.dtype) -> int:
-        if dtype in [torch.uint8, torch.int8, torch.bool]:
-            return 1
-        elif dtype in [torch.half, torch.bfloat16, torch.int16]:
-            return 2
-        elif dtype in [torch.float, torch.int]:
-            return 4
-        elif dtype in [torch.double, torch.int64, torch.complex64]:
-            return 8
-        elif dtype in [torch.complex128]:
-            return 16
-
-        raise ValueError(f"Unknown dtype: {dtype}")
-
-
-    def get_model_size(self) -> int:
-        """
-        Get the size of the model in bytes
-
-        :return: the size of the model in bytes
-        """
-
-        model_size = 0
-
-        for _, param in self.named_parameters():
-
-            layer_size = self.__get_dtype_size(param.data.dtype)
-
-            for s in param.data.size():
-                layer_size *=  s
-
-            model_size += layer_size
-
-        return model_size
-
 
 def train_model(model: nn.Module, dataloader, criterion: nn.Module, optimizer: torch.optim.Optimizer) -> Tuple[float, float]:
     """
