@@ -3,8 +3,33 @@ import torch.nn as nn
 
 from typing import Tuple, List, Callable, Optional, Any
 
+
 class LSTM(nn.Module):
-    def __init__(self, input_size, output_size, **kwargs):
+    """
+    LSTM model
+
+    :attr:`input_size`: the size of the input
+    :attr:`output_size`: the size of the output
+    :attr:`lstm_num_layers`: the number of LSTM layers
+    :attr:`lstm_hidden_size`: the size of the hidden state of the LSTM
+    :attr:`num_layers`: the number of layers in the model
+    :attr:`hidden_size`: the size of the hidden state of the model
+    :attr:`device`: the device to use
+    :attr:`l_lstm`: the LSTM layer
+    :attr:`l_lnrs`: the linear layers
+    """
+
+    def __init__(self, input_size, output_size, **kwargs) -> None:
+        """
+        Initialize the LSTM model
+
+        :param input_size: the size of the input
+        :param output_size: the size of the output
+        :param kwargs: the keyword arguments
+
+        :return: None
+        """
+
         super(LSTM, self).__init__()
 
         self.lstm_num_layers = kwargs.get("lstm_num_layers", 1)
@@ -23,7 +48,14 @@ class LSTM(nn.Module):
             device=self.device
         )
 
-        def create_layers():
+
+        def create_layers() -> List[nn.Linear]:
+            """
+            Create the linear layers
+
+            :return: the linear layers
+            """
+
             layers = []
 
             for _ in range(self.num_layers):
@@ -65,41 +97,6 @@ class LSTM(nn.Module):
         y = self.l_lnrs(hn)
 
         return y
-
-    def __get_dtype_size(self, dtype: torch.dtype) -> int:
-        if dtype in [torch.uint8, torch.int8, torch.bool]:
-            return 1
-        elif dtype in [torch.half, torch.bfloat16, torch.int16]:
-            return 2
-        elif dtype in [torch.float, torch.int]:
-            return 4
-        elif dtype in [torch.double, torch.int64, torch.complex64]:
-            return 8
-        elif dtype in [torch.complex128]:
-            return 16
-
-        raise ValueError(f"Unknown dtype: {dtype}")
-
-
-    def get_model_size(self) -> int:
-        """
-        Get the size of the model in bytes
-
-        :return: the size of the model in bytes
-        """
-
-        model_size = 0
-
-        for _, param in self.named_parameters():
-
-            layer_size = self.__get_dtype_size(param.data.dtype)
-
-            for s in param.data.size():
-                layer_size *=  s
-
-            model_size += layer_size
-
-        return model_size
 
 
 def train_model(

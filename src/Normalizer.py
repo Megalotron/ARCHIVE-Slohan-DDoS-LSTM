@@ -15,9 +15,17 @@ log = logging.getLogger(__name__)
 class Normalizer:
     """
     This class is used to normalize the data.
+    
+    :attr:`params` is a dictionary containing the normalization parameters.
     """
 
-    def __init__(self, path: str=None):
+    def __init__(self, path: str=None) -> None:
+        """
+        Initializes the normalizer.
+
+        :param path: the path to the normalization parameters
+        """
+
         self.params = None
 
         if path is not None:
@@ -29,6 +37,8 @@ class Normalizer:
         Loads the normalization parameters from a file.
 
         :param filepath: the filepath to the file containing the normalization parameters
+
+        :return: None
         """
 
         self.params = json.load(open(filepath, 'r'))
@@ -40,6 +50,8 @@ class Normalizer:
 
         :param filepath: the filepath to the file to save the normalization parameters to
         :param key: the key to save the normalization parameters under
+
+        :return: None
         """
 
         json.dump(self.params, open(filepath, 'w+'))
@@ -136,6 +148,15 @@ class Normalizer:
 
 
 def __get_csv_normalization_params(path: str, chuncksize: int) -> Dict[str, Dict[str, float]]:
+    """
+    Gets the normalization parameters for each chunk of a csv file.
+
+    :param path: the path to the csv's
+    :param chuncksize: the size of the chunks to read from the csv's
+
+    :return: the normalization parameters
+    """
+
     metadata = {}
 
     with pd.read_csv(path, chunksize=chuncksize) as reader:
@@ -191,6 +212,8 @@ def main(cfg: DictConfig) -> None:
     Calculates the normalization parameters for the dataset, save it and save a normalized version of the dataset.
 
     :param cfg: the config to use
+
+    :return: None
     """
 
     data_cfg = cfg.data
