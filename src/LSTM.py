@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+from torch.utils.data import DataLoader
 from typing import Tuple, List, Callable, Optional, Any
 
 
@@ -100,7 +101,7 @@ class LSTM(nn.Module):
 
 def train_model(
         model: nn.Module,
-        dataloader,
+        dataloader: DataLoader,
         criterion: nn.Module,
         optimizer: torch.optim.Optimizer,
         callbacks: Optional[List[Callable[[Any], None]]]=None,
@@ -109,8 +110,7 @@ def train_model(
     Train the model on the training set.
 
     :param model:      The model to train.
-    :param dataset:    The training dataset.
-    :param labels:     The training labels.
+    :param dataloader: The training dataloader.
     :param criterion:  The criterion to use.
     :param optimizer:  The optimizer to use.
     :param callbacks:  The list of callbacks to use. If None, no callbacks are used.
