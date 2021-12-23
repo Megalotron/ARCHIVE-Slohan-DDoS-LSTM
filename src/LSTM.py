@@ -151,7 +151,7 @@ def train_model(
 
 def test_model(
         model: nn.Module,
-        dataloader,
+        dataloader: DataLoader,
         criterion: nn.Module,
         callbacks: Optional[List[Callable[[Any], None]]]=None,
     ) -> Tuple[float, float]:
@@ -159,10 +159,8 @@ def test_model(
     Test the model on the test set.
 
     :param model:      The model to test.
-    :param dataset:    The test dataset.
-    :param labels:     The test labels.
+    :param dataloader: The validation or testing dataloader.
     :param criterion:  The criterion to use.
-    :param nb_class:   The number of classes.
     :param callbacks:  The list of callbacks to use. If None, no callbacks are used.
 
     :return: the loss and the accuracy of the model on the val/test set.
