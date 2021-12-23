@@ -16,9 +16,22 @@ log = logging.getLogger(__name__)
 class DDoSDataset(Dataset):
     """
     Torch based dataset ready for dataloader
+
+    :attr:`X`: torch.Tensor containing the features
+    :attr:`y`: torch.Tensor containing the labels
     """
 
     def __init__(self, X: torch.Tensor, y: torch.Tensor, device: torch.device) -> None:
+        """
+        Initialize the dataset
+
+        :param X: torch.Tensor containing the features
+        :param y: torch.Tensor containing the labels
+        :param device: torch.device to use
+
+        :return: None
+        """
+
         log.debug("Initializing DDoSDataset")
 
         self.X = X.to(device) if X.device != device else X
@@ -224,6 +237,8 @@ def save_tensor(tensor: torch.Tensor, file_path: str) -> None:
 
     :param tensor: The tensor to save.
     :param file_path: The path to save the tensor to.
+
+    :return: None
     """
 
     torch.save(tensor, file_path)
@@ -271,6 +286,8 @@ def main(cfg: DictConfig) -> None:
     Create tensors files from the normalized dataframe.
 
     :param cfg: The configuration to use.
+
+    :return: None
     """
 
     data_cfg = cfg.data

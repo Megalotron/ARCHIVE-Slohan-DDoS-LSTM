@@ -14,6 +14,8 @@ def main(cfg: DictConfig) -> None:
     Merge every preprocessed dataframe into one dataframe.
 
     :param cfg: The configuration to use.
+
+    :return: None
     """
 
     data_cfg = cfg.data
